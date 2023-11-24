@@ -1,0 +1,62 @@
+{% extends '../base.html' %}
+
+{% block content %}
+<a href="{% url 'to_do:create_task' %}">
+    Nueva tarea
+</a>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Tarea
+            </th>
+            <th>
+                Prioridad
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>
+                Activo
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for task in tasks %}
+            <tr>
+                <td>
+                    {{ task.name }}
+                </td>
+                <td>
+                    {{ task.priority }}
+                </td>
+                <td>
+                    {{ task.status }}
+                </td>
+                <td>
+                    {{ task.enable }}
+                </td>
+                <td>
+                    <a href="{% url 'to_do:update_task' task.id %}">
+                        Actualizar
+                    </a>
+                    <a href="{% url 'to_do:delete_task' task.id %}">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock content %}
+
+{% block modal %}
+{% endblock modal %}

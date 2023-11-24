@@ -1,0 +1,16 @@
+{% extends '../base.html' %}
+
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <a href="{% url 'to_do:list_tasks' %}">
+            Cancelar
+        </a>
+        <button type="submit">
+            Eliminar
+        </button>
+    </form>
+{% endblock content %}
+
