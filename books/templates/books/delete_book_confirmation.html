@@ -1,0 +1,31 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">
+            Confirmación de eliminación
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <div class="modal-body">
+        <p>
+            ¿Está seguro que desea eliminar el registro {{ book.title }}?
+        </p>
+        <p class="text-muted">
+            Esta acción no puede ser reestablecida.
+        </p>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+        </button>
+        <button
+            type="submit" class="btn btn-primary"
+            hx-post="{% url 'books:delete_book' pk=book.id %}"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            >
+
+            Eliminar
+        </button>
+    </div>
+</div>
