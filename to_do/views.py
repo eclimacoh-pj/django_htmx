@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
@@ -7,7 +8,12 @@ from .forms import *
 
 
 def create_task(request):
+    template = 'to_do/create_task.html'
+
     form = CreateTaskForm()
+    context = {
+        'form': form
+    }
     if request.method == 'POST':
         form = CreateTaskForm(request.POST)
         if form.is_valid():
@@ -16,9 +22,15 @@ def create_task(request):
             return HttpResponse(
                 status=200,
                 headers={
-                    
+                    'HX-Trigger': json.dumps({
+                        'tasksListChanged': None,
+                        'showMessage': f'{task.name} creado con éxito.'
+                    })
                 }
             )
+        else:
+            return render(request, template, context)
+    return render(request, template, context)
 
     # Código tradicional para este tipo de vistas.
     #         messages.success(
