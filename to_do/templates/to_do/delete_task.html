@@ -1,16 +1,29 @@
-{% extends '../base.html' %}
+<div class="modal-content">
+    <div class="modal-header">
+        <h5>
+            Confirmar eliminación
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
 
+    <div class="modal-body">
+        <P>
+            ¿Está seguro de eliminar este registro?
+        </P>
+        <P>
+            Esta acción no se puede deshacer.
+        </P>
+    </div>
 
-{% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-
-        <a href="{% url 'to_do:list_tasks' %}">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Cancelar
-        </a>
-        <button type="submit">
+        </button>
+        <button type="submit" class="btn btn-primary"
+            hx-post="{% url 'to_do:delete_task' task.id %}"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
             Eliminar
         </button>
-    </form>
-{% endblock content %}
+    </div>
+</div>
 

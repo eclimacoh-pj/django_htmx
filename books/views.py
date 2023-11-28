@@ -20,12 +20,14 @@ def add_book(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
         if form.is_valid():
-            book = Books.objects.create(
-                title=form.cleaned_data['title'],
-                author=form.cleaned_data['author'],
-                description=form.cleaned_data['description'],
-                year=form.cleaned_data['year']
-            )
+            book = form.save()
+
+            # book = Books.objects.create(
+            #     title=form.cleaned_data['title'],
+            #     author=form.cleaned_data['author'],
+            #     description=form.cleaned_data['description'],
+            #     year=form.cleaned_data['year']
+            # )
             return HttpResponse(
                 status=204,
                 headers={

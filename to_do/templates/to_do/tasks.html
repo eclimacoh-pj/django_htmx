@@ -1,0 +1,26 @@
+
+{% for task in tasks %}
+    <tr id="task-{{ task.pk }}" class="task-row">
+        <td>{{ task.name }}</td>
+        <td>{{ task.get_priority_display }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.enable }}</td>
+        <td>
+            <button
+                class="btn btn-success btn-sm"
+                type="button"
+                hx-get="{% url 'to_do:update_task' task.id %}"
+                hx-target="#dialog">
+                Actualizar
+            </button>
+            <button
+                class="btn btn-danger btn-sm"
+                type="button"
+                hx-get="{% url 'to_do:delete_task_confirmation' task.id %}"
+                hx-target="#dialog">
+                Eliminar
+            </button>
+        </td>
+    </tr>
+{% endfor %}
+123456
