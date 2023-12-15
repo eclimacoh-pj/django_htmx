@@ -7,11 +7,7 @@
 </a>
 
 <!-- Modal con boostrap -->
-<button
-    type="button"
-    hx-get="{% url 'to_do:create_task' %}"
-    hx-target="#dialog"
-    class="btn btn-primary">
+<button type="button" hx-get="{% url 'to_do:create_task' %}" hx-target="#dialog" class="btn btn-primary">
     Bootstrap
 </button>
 
@@ -34,29 +30,20 @@
 
 <!-- Modal con Tabler.io -->
 <!-- ------------------- -->
-<button
-    class="btn"
-    data-bs-toggle="modal"
-    data-bs-target="#modal-team"
-    hx-get="{% url 'to_do:create_task' %}"
-    hx-target="#modal-team"
-    hx-trigger="click">
+<button class="btn" data-bs-toggle="modal" data-bs-target="#modal-team" hx-get="{% url 'to_do:create_task' %}"
+    hx-target="#modal-team" hx-trigger="click">
     Tabler.io
 </button>
 
 
-<div class="modal modal-blur fade" id="modal-team" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div id="modal-team" class="modal modal-blur fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="modal-dialog" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content"></div>
     </div>
 </div> <!-- Modal con Tabler.io -->
 
 
-
-
-
-
-
+<!-- TABLA -->
 <table class="table">
     <thead>
         <tr>
@@ -77,10 +64,7 @@
             </th>
         </tr>
     </thead>
-    <tbody
-        hx-trigger="load, tasksListChanged from:body"
-        hx-get="{% url 'to_do:tasks' %}"
-        hx-target="this">
+    <tbody hx-trigger="load, tasksListChanged from:body" hx-get="{% url 'to_do:tasks' %}" hx-target="this">
         <tr>
             <td class="spinner-border" role="status">
                 <span class="visually-hidden">
@@ -90,9 +74,8 @@
         </tr>
     </tbody>
 </table>
-
-
 {% endblock content %}
+
 
 {% block modal %}
 {% endblock modal %}
@@ -100,40 +83,65 @@
 
 {% block page-scripts %}
 <script>
-  ; (function () {
-    const modal = new bootstrap.Modal(document.getElementById("modal"))
-
-    htmx.on("htmx:afterSwap", (e) => {
-      // Response targeting #dialog => show the modal
-      if (e.detail.target.id == "dialog") {
-        modal.show()
-      }
-    })
-
-    htmx.on("htmx:beforeSwap", (e) => {
-      // Empty response targeting #dialog => hide the modal
-      if (e.detail.target.id == "dialog" && !e.detail.xhr.response) {
-        modal.hide()
-        e.detail.shouldSwap = false
-      }
-    })
-
-    // Remove dialog content after hiding
-    htmx.on("hidden.bs.modal", () => {
-      document.getElementById("dialog").innerHTML = ""
-    })
-  })()
-  </script>
-  <script>
     ; (function () {
-      const toastElement = document.getElementById("toast")
-      const toastBody = document.getElementById("toast-body")
-      const toast = new bootstrap.Toast(toastElement, { delay: 2000 })
+        const modal = new bootstrap.Modal(document.getElementById("modal-team"))
 
-      htmx.on("showMessage", (e) => {
-        toastBody.innerText = e.detail.value
-        toast.show()
-      })
+        htmx.on("htmx:afterSwap", (e) => {
+            // Response targeting #dialog => show the modal
+            if (e.detail.target.id == "dialog") {
+                modal.show()
+            }
+        })
+
+        htmx.on("htmx:beforeSwap", (e) => {
+            // Empty response targeting #dialog => hide the modal
+            if (e.detail.target.id == "dialog" && !e.detail.xhr.response) {
+                modal.hide()
+                e.detail.shouldSwap = false
+            }
+        })
+
+        // Remove dialog content after hiding
+        htmx.on("hidden.bs.modal", () => {
+            document.getElementById("dialog").innerHTML = ""
+        })
     })()
-  </script>
+</script>
+<script>
+    ; (function () {
+        const modal = new bootstrap.Modal(document.getElementById("modal"))
+
+        htmx.on("htmx:afterSwap", (e) => {
+            // Response targeting #dialog => show the modal
+            if (e.detail.target.id == "dialog") {
+                modal.show()
+            }
+        })
+
+        htmx.on("htmx:beforeSwap", (e) => {
+            // Empty response targeting #dialog => hide the modal
+            if (e.detail.target.id == "dialog" && !e.detail.xhr.response) {
+                modal.hide()
+                e.detail.shouldSwap = false
+            }
+        })
+
+        // Remove dialog content after hiding
+        htmx.on("hidden.bs.modal", () => {
+            document.getElementById("dialog").innerHTML = ""
+        })
+    })()
+</script>
+<script>
+        ; (function () {
+            const toastElement = document.getElementById("toast")
+            const toastBody = document.getElementById("toast-body")
+            const toast = new bootstrap.Toast(toastElement, { delay: 2000 })
+
+            htmx.on("showMessage", (e) => {
+                toastBody.innerText = e.detail.value
+                toast.show()
+            })
+        })()
+</script>
 {% endblock page-scripts %}
