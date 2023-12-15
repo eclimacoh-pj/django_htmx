@@ -1,0 +1,5 @@
+PER
+& d:\documentos\Desarrollo\Entornos\PY311\Scripts\activate.ps1
+
+PJ
+& D:\Documentos\Proyectos\py3116\Scripts\activate.ps1

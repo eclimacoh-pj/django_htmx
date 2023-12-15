@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'books',
     'to_do',
+    'financial',
 ]
 
 MIDDLEWARE = [
